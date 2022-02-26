@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ProteinSynthesis"
+version = "1.0.0"
+description = "Use those amino acids to make proteins!"
+authors = ["GrandMoff100 <minecraftcrusher100@gmail.com>"]
+
+[tool.isort]
+profile = "black"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+isort = "^5.10.1"
+mypy = "^0.931"
+pylint = "^2.12.2"
+flake8 = "^4.0.1"
+pre-commit = "^2.17.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
