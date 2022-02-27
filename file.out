@@ -1,0 +1,61 @@
+Module(
+    body=[
+        ImportFrom(
+            module="genetics.cell",
+            names=[alias(name="Ribosome", asname=None)],
+            level=0,
+        ),
+        ImportFrom(
+            module="genetics.dna",
+            names=[alias(name="DNA", asname=None)],
+            level=0,
+        ),
+        Assign(
+            targets=[Name(id="dna", ctx=Store())],
+            value=Call(
+                func=Name(id="DNA", ctx=Load()),
+                args=[
+                    Constant(
+                        value="ATCGGGGATTAGGCTAGCACGTGTGCCTCTATTGTCTCGGTGCTATATCGTAGCTATCTGTGC",
+                        kind=None,
+                    )
+                ],
+                keywords=[],
+            ),
+            type_comment=None,
+        ),
+        Assign(
+            targets=[Name(id="ribosome", ctx=Store())],
+            value=Call(func=Name(id="Ribosome", ctx=Load()), args=[], keywords=[]),
+            type_comment=None,
+        ),
+        Expr(
+            value=Call(
+                func=Name(id="print", ctx=Load()),
+                args=[
+                    Call(
+                        func=Attribute(
+                            value=Name(id="ribosome", ctx=Load()),
+                            attr="make_protein",
+                            ctx=Load(),
+                        ),
+                        args=[
+                            Call(
+                                func=Attribute(
+                                    value=Name(id="dna", ctx=Load()),
+                                    attr="rna",
+                                    ctx=Load(),
+                                ),
+                                args=[],
+                                keywords=[],
+                            )
+                        ],
+                        keywords=[],
+                    )
+                ],
+                keywords=[],
+            )
+        ),
+    ],
+    type_ignores=[],
+)

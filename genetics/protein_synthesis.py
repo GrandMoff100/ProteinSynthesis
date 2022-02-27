@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-
-from .rna import RNA
-from .amino_acids import AminoAcids
 from typing import Generator, Tuple
+
+from .amino_acids import AminoAcids
+from .rna import RNA
+
 
 class mRNA(RNA):
     def __new__(cls, code: str):
@@ -12,27 +13,24 @@ class mRNA(RNA):
 
     @property
     def codons(self) -> Generator["Codon", None, None]:
-        for i in range(0, len(self), 3):
-            yield Codon(self[i : i + 3])
+        yield from map(Codon, zip(self[::3], self[1::3], self[2::3]))
 
 
 class Codon(mRNA):
     def __new__(cls, bases: str):
         if len(bases) != 3:
-            raise ValueError(f"Codons must be three bases, got {bases.upper()}")
+            raise ValueError(f"Codons must be triplets, got {bases.upper()}")
         return mRNA.__new__(cls, bases)
 
     def tRNA(self) -> "tRNA":
         return tRNA(self)
-    
+
     @property
     def anti_codon(self) -> "Codon":
         codon = ""
         for base in self:
-            if (index := RNA.bases.index(base)) % 2:
-                codon += RNA.bases[index - 1]
-            else:
-                codon += RNA.bases[index + 1]
+            i = self.bases.index(base)
+            codon += self.bases[i % 2::2][i % 2]
         return Codon(codon)
 
 
@@ -51,4 +49,4 @@ class tRNA:
 
 @dataclass()
 class Protein:
-    amino_acids: Tuple[AminoAcids]
+    amino_acids: Tuple[AminoAcids, ...]

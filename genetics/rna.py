@@ -1,20 +1,21 @@
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple, Generator
+from typing import Dict
 
-from .mixins import BasesCheck
 from .amino_acids import AminoAcids
+from .mixins import BasesCheck
+
 
 @dataclass()
 class AminoAcidLookup:
     table: Dict[str, Dict[str, Dict[str, AminoAcids]]]
 
     def __getitem__(self, codon: str) -> AminoAcids:
-        first, second, third = codon.upper()
+        first, second, third, *_ = tuple(codon.upper())
         return self.table[first][second][third]
 
 
 class RNA(BasesCheck):
-    bases: str = "AUCG"
+    bases: str = "ACUG"
 
     amino_acids: AminoAcidLookup = AminoAcidLookup(
         {

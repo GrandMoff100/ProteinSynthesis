@@ -23,5 +23,3 @@ class AminoAcids(Enum):
     glutamine = "Glutamine"
     histidine = "Histidine"
     proline = "Proline"
-
-

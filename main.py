@@ -1,6 +1,5 @@
-from genetics.dna import DNA
 from genetics.cell import Ribosome
-
+from genetics.dna import DNA
 
 dna = DNA("ATCGGGGATTAGGCTAGCACGTGTGCCTCTATTGTCTCGGTGCTATATCGTAGCTATCTGTGC")
 

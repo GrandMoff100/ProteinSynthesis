@@ -7,6 +7,11 @@ authors = ["GrandMoff100 <minecraftcrusher100@gmail.com>"]
 [tool.isort]
 profile = "black"
 
+[tool.pylint.messages_control]
+disable = [
+    "too-few-public-methods",
+    "invalid-name"
+]
 [tool.poetry.dependencies]
 python = "^3.8"
 

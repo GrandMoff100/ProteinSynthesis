@@ -3,7 +3,7 @@ from .protein_synthesis import mRNA
 
 
 class DNA(BasesCheck):
-    bases: str = "ATCG"
+    bases: str = "ACTG"
 
     def rna(self) -> mRNA:
         return mRNA(self.opposite().replace("T", "U"))

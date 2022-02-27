@@ -1,12 +1,13 @@
-from typing import Generator, Optional
-from .protein_synthesis import Protein, tRNA, mRNA
+from typing import Generator, Optional, Tuple
+
 from .amino_acids import AminoAcids
+from .protein_synthesis import Protein, mRNA, tRNA
 
 
-class Ribosome:       
+class Ribosome:
     @staticmethod
     def _assembler() -> Generator[None, Optional[tRNA], Protein]:
-        amino_acids: Tuple[AminoAcids] = ()
+        amino_acids: Tuple[AminoAcids, ...] = ()
         yield None
         while True:
             trna = yield None
@@ -15,7 +16,7 @@ class Ribosome:
                     return Protein(amino_acids)
                 amino_acids += (trna.amino_acid,)
 
-    def make_protein(self, mrna: mRNA) -> Protein:
+    def make_protein(self, mrna: mRNA) -> Optional[Protein]:
         assembler = self._assembler()
         assembler.send(None)
         for trna in map(tRNA, mrna.codons):
@@ -23,7 +24,7 @@ class Ribosome:
                 assembler.send(trna)
             except StopIteration as exc:
                 return exc.value
-        return 
+        return None
 
 
 class Cell:
