@@ -8,7 +8,6 @@ class Ribosome:
     @staticmethod
     def _assembler() -> Generator[None, Optional[tRNA], Protein]:
         amino_acids: Tuple[AminoAcids, ...] = ()
-        yield None
         while True:
             trna = yield None
             if trna is not None:

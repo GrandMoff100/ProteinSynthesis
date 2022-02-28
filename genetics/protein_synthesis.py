@@ -13,15 +13,10 @@ class mRNA(RNA):
 
     @property
     def codons(self) -> Generator["Codon", None, None]:
-        yield from map(Codon, zip(self[::3], self[1::3], self[2::3]))
+        yield from map(Codon, map("".join, zip(self[::3], self[1::3], self[2::3])))
 
 
 class Codon(mRNA):
-    def __new__(cls, bases: str):
-        if len(bases) != 3:
-            raise ValueError(f"Codons must be triplets, got {bases.upper()}")
-        return mRNA.__new__(cls, bases)
-
     def tRNA(self) -> "tRNA":
         return tRNA(self)
 
